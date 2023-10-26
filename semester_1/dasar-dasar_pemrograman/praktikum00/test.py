@@ -1,0 +1,18 @@
+print('diaz farindra')
+print('0110223255')
+print('TI08')
+print('depok')
+print('\n')
+
+print('dzaka dhiya')
+print('0110223253')
+print('TI08')
+print('depok')
+print('\n')
+
+number1 = int(input('masukan angka pertama: '))
+number2 = int(input('masukan angka kedua: '))
+print('hasil pertambahan: ', (number1 + number2))
+print('hasil pengurangan: ', (number1 - number2))
+print('hasil perkalian: ', (number1 * number2))
+print('hasil pembagian: ', (number1 / number2))
