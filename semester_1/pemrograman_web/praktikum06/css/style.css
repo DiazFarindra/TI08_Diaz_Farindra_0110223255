@@ -1,0 +1,63 @@
+body {
+    background-color: burlywood;
+    background-image: url('./../grid.svg');
+    padding: 0 5rem;
+}
+
+#header {
+    padding: 20px;
+    background-color: aquamarine;
+    text-align: center;
+}
+
+#header blockquote {
+    padding: 20px;
+    background-color: aqua;
+    border: 2px dashed #000000;
+}
+
+#header blockquote #soekarno {
+    font-weight: bold;
+}
+
+.menu {
+    width: 720px;
+    margin: auto;
+}
+
+.menu ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.gambar {
+    text-align: center;
+}
+
+.isi {
+    margin: 3rem 0;
+    font-size: large;
+}
+
+.koleksi {
+    display: flex;
+    justify-content: space-between;
+    width: 1000px;
+    margin: auto;
+}
+
+.koleksi img {
+    width: 200px;
+}
+
+.promo {
+    text-align: center;
+    font-size: xx-large;
+    color: blue;
+    margin: 3rem;
+}
+
+.promo ol {
+    list-style-type: none;
+}
