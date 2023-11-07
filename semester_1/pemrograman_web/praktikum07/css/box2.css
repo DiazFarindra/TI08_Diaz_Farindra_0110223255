@@ -1,0 +1,50 @@
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.green {
+    width: 100%;
+    height: 20vh;
+    background-color: greenyellow;
+}
+
+.box1 {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.box1 .yellow {
+    width: 25%;
+    height: auto;
+    background-color: yellow;
+}
+
+.box1 .red {
+    width: 75%;
+    height: auto;
+    background-color: red;
+}
+
+.box2 {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.box2 .yellow {
+    width: 25%;
+    height: auto;
+    background-color: yellow;
+}
+
+.box2 .blue {
+    width: 75%;
+    height: auto;
+    background-color: blue;
+}

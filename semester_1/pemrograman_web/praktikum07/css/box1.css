@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 80%;
+    gap: 30px;
+}
+
+.box1 {
+    background: yellow;
+    width: 20%;
+    height: 100vh;
+}
+
+.box2 {
+    background: red;
+    width: 20%;
+    height: 100vh;
+}
+
+.box3 {
+    background: green;
+    width: 20%;
+    height: 100vh;
+}
+
+.box4 {
+    background: blue;
+    width: 20%;
+    height: 100vh;
+}

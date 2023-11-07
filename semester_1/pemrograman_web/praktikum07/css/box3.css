@@ -1,0 +1,53 @@
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.section1 {
+    display: flex;
+    gap: 20px;
+    height: 25vh;
+}
+
+.section1 .yellow {
+    width: 25%;
+    background-color: yellow;
+}
+
+.section1 .red {
+    width: 75%;
+    background-color: red;
+}
+
+.section2 {
+    display: flex;
+    gap: 20px;
+    height: 50vh;
+    margin-top: 20px;
+}
+
+.section2 .green {
+    width: 25%;
+    background-color: green;
+}
+
+.section2 .gray {
+    width: 50%;
+    background-color: gray;
+}
+
+.section2 .aqua {
+    width: 25%;
+    background-color: aqua;
+}
+
+.section3 {
+    display: flex;
+    height: 25vh;
+    margin-top: 20px;
+}
+
+.section3 .blue {
+    width: 100%;
+    background-color: blue;
+}
