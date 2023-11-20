@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 75%;
+    margin: 5rem auto;
+}
+
+.group1 {
+    display: flex;
+    gap: 2rem;
+}
+
+.group2 {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem auto;
+}
+
+.box {
+    border: 5px solid;
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media only screen and (max-width: 768px) {
+    .group1 {
+        flex-wrap: wrap;
+    }
+}
