@@ -1,10 +1,11 @@
 import shapes
 import calculator
 
+text = 'masukan tinggi : '
 
 print('----------segitiga----------')
 base = int(input('masukan alas : '))
-height = int(input('masukan tinggi : '))
+height = int(input(text))
 
 s1 = int(input('masukan sisi ke-1 : '))
 s2 = int(input('masukan sisi ke-2 : '))
@@ -20,7 +21,7 @@ print(shapes.square(side))
 
 
 print('----------persegi panjang----------')
-height = int(input('masukan tinggi : '))
+height = int(input(text))
 width = int(input('masukan lebar : '))
 
 print(shapes.long_square(height, width))
@@ -37,7 +38,7 @@ print(shapes.rhombus(d1, d2, s))
 print('----------jajar genjang----------')
 s1 = int(input('masukan sisi-1 : '))
 s2 = int(input('masukan sisi-2 : '))
-height = int(input('masukan tinggi : '))
+height = int(input(text))
 
 print(shapes.parallelogram(s1, s2, height))
 
@@ -86,29 +87,28 @@ print(calculator.divide(number1, number2))
 print('----------log----------')
 number = int(input(text3))
 
-print(calculator.log(number)
+print(calculator.log(number))
 
-)
-print('----------log----------')
+
+print('----------akar----------')
 number = int(input(text3))
 
-print(calculator.sqrt(number)
+print(calculator.sqrt(number))
 
-)
-print('----------log----------')
+
+print('----------sin----------')
 number = int(input(text3))
 
-print(calculator.sin(number)
+print(calculator.sin(number))
 
-)
-print('----------log----------')
+
+print('----------cos----------')
 number = int(input(text3))
 
-print(calculator.cos(number)
+print(calculator.cos(number))
 
-)
-print('----------log----------')
+
+print('----------tan----------')
 number = int(input(text3))
 
-print(calculator.tan(number)
-)
+print(calculator.tan(number))
