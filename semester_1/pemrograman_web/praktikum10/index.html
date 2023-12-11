@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="border: 2px solid black; width: 30%; padding: 10px; margin: 20px 30px">
+        <p>menghitung luas dan keliling lingkaran : </p>
+        <input type="number" oninput="lingkaran(this.value)">
+        <p>luas lingkaran : <span id="luas_lingkaran"></span></p>
+        <p>keliling lingkaran : <span id="keliling_lingkaran"></span></p>
+    </div>
+
+    <div style="border: 2px solid black; width: 30%; padding: 10px; margin: 20px 30px">
+        <p>menghitung kurs rupiah (kurs: Rp. 14.650) : </p>
+        <input type="number" oninput="kurs(this.value)">
+        <p>dolar $ : <span id="dolar"></span></p>
+        <p>rupiah Rp. : <span id="rupiah"></span></p>
+    </div>
+
+    <div style="border: 2px solid black; width: 30%; padding: 10px; margin: 20px 30px">
+        <p>menghitung biaya parkir : </p>
+        <input type="number" oninput="parking(this.value)">
+        <p>jumlah jam : <span id="jam"></span> jam</p>
+        <p>jumlah bayar : Rp. <span id="bayar"></span></p>
+    </div>
+
+    <div style="border: 2px solid black; width: 30%; padding: 10px; margin: 20px 30px">
+        <p>penjumlahan : </p>
+        <input type="number" id="input1" oninput="penjumlahan()">
+        <p>+</p>
+        <input type="number" id="input2" oninput="penjumlahan()">
+        <p>hasil : <span id="hasil"></span></p>
+    </div>
+
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
