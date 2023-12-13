@@ -17,9 +17,9 @@
     <header id="header" class="fixed top-0 z-50 w-screen mx-auto border-b-2 border-b-black sm:backdrop-blur-lg bg-white sm:bg-white/50">
         <div x-data="{ open: false }" class="flex flex-col sm:flex-row px-2 mx-auto sm:justify-between sm:items-center sm:px-16 sm:py-2">
             <div class="p-5 sm:p-0 flex flex-row items-center justify-between">
-                <section id="logo" class="font-display uppercase tracking-wider text-4xl">
+                <a href="/" id="logo" class="font-display uppercase tracking-wider text-4xl">
                     SPOOORTS
-                </section>
+                </a>
 
                 <button class="sm:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -36,10 +36,9 @@
             <nav :class="{'flex': open, 'hidden': !open}" class="font-body flex-col px-5 mb-5 sm:mb-0 hidden gap-3 sm:flex sm:flex-row sm:gap-16" aria-label="navbar">
                 <a href="/" class="hover:underline hover:text-gray-500 ease-in-out duration-100">home</a>
                 <a href="./shoes.html" class="hover:underline hover:text-gray-500 ease-in-out duration-100">shoes</a>
-                <a href="#" class="hover:underline hover:text-gray-500 ease-in-out duration-100">jacket</a>
-                <a href="#" class="hover:underline hover:text-gray-500 ease-in-out duration-100">ski</a>
-                <a href="#" class="hover:underline hover:text-gray-500 ease-in-out duration-100">MMA</a>
-                <a href="#" class="hover:underline hover:text-gray-500 ease-in-out duration-100">boxing</a>
+                <a href="./jacket.html" class="hover:underline hover:text-gray-500 ease-in-out duration-100">jacket</a>
+                <a href="./ski.html" class="hover:underline hover:text-gray-500 ease-in-out duration-100">ski</a>
+                <a href="./boxing.html" class="hover:underline hover:text-gray-500 ease-in-out duration-100">boxing</a>
             </nav>
         </div>
     </header>
