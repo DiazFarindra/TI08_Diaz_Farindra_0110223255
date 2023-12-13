@@ -1,0 +1,48 @@
+
+/* outward */
+
+@font-face {
+    font-family: outward;
+    src: url('./fonts/outward/fonts/ttf/outward-block.ttf') format('truetype');
+}
+
+
+/* work sans */
+
+/* regular */
+@font-face {
+    font-family: WorkSans;
+    src: url('./fonts/work_sans/static/WorkSans-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+
+/* medium */
+@font-face {
+    font-family: WorkSans;
+    src: url('./fonts/work_sans/static/WorkSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: WorkSans;
+    src: url('./fonts/work_sans/static/WorkSans-MediumItalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 500;
+}
+
+
+/* bold */
+@font-face {
+    font-family: WorkSans;
+    src: url('./fonts/work_sans/static/WorkSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: WorkSans;
+    src: url('./fonts/work_sans/static/WorkSans-BoldItalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 700;
+}
