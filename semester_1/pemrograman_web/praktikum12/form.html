@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <legend>form</legend>
+        <form id="form">
+            <div>
+                <label for="">nama pelanggan</label>
+                <input type="text" name="nama" required maxlength="30">
+            </div>
+            <div>
+                <label for="">email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div>
+                <label for="">jam keberangkatan</label>
+                <input type="time" name="jam" required>
+            </div>
+            <div>
+                <label for="">tujuan keberangkatan</label>
+                <input type="text" name="tujuan" required>
+            </div>
+            <div>
+                <label for="">jumlah tiket</label>
+                <input type="number" name="tiket" min="1" max="10">
+            </div>
+            <button type="submit">submit</button>
+        </form>
+    </fieldset>
+
+    <div>
+        <p>nama pelanggan: <span id="nama"></span></p>
+        <p>email: <span id="email"></span></p>
+        <p>jam keberangkatan: <span id="jam"></span></p>
+        <p>tujuan keberangkatan: <span id="tujuan"></span></p>
+        <p>jumlah tiket: <span id="tiket"></span></p>
+    </div>
+
+    <script src="./form.js"></script>
+</body>
+</html>
