@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset style="width: 30%; margin: 30px;">
+        <legend>kurs rupiah - mata uang asing</legend>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>masukan nilai</th>
+                    <th>valas</th>
+                    <th>nilai rupiah</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="number" id="nilai">
+                    </td>
+                    <td>
+                        <select name="valas" id="valas" onchange="kurs()">
+                            <option selected disabled>select valas</option>
+                            <option value="9915">dollar US</option>
+                            <option value="13472">dollar Singapore</option>
+                            <option value="874">ringgit Malaysia</option>
+                            <option value="120">yen Japan</option>
+                            <option value="15888">euro</option>
+                            <option value="3592">riyal Arab Saudi</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" id="result" disabled>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <script src="./kurs.js"></script>
+</body>
+</html>
