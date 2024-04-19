@@ -1,0 +1,585 @@
+mysql> CREATE DATABASE IF NOT EXISTS dbpegawai;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE dbpegawai;
+Database changed
+
+mysql> CREATE TABLE divisi (
+    ->     id INT NOT NULL AUTO_INCREMENT,
+    ->     nama varchar(30) NOT NULL,
+    ->     PRIMARY KEY (id),
+    ->     UNIQUE (nama)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC divisi;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE jabatan (
+    ->     id INT AUTO_INCREMENT NOT NULL,
+    ->     nama VARCHAR(30) NOT NULL,
+    ->     PRIMARY KEY (id),
+    ->     UNIQUE (nama)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC jabatan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE pegawai (
+    ->     id INT AUTO_INCREMENT NOT NULL,
+    ->     nip CHAR(5) NOT NULL,
+    ->     nama VARCHAR(30) NOT NULL,
+    ->     gender ENUM('laki-laki', 'perempuan') NOT NULL,
+    ->     tmp_lahir VARCHAR(30) NOT NULL,
+    ->     tgl_lahir DATE NOT NULL,
+    ->     iddivisi INT NOT NULL,
+    ->     idjabatan INT NOT NULL,
+    ->     alamat TEXT,
+    ->     PRIMARY KEY (id),
+    ->     UNIQUE (nip),
+    ->     FOREIGN KEY (iddivisi) REFERENCES divisi(id),
+    ->     FOREIGN KEY (idjabatan) REFERENCES jabatan(id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC pegawai;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id           | int           | NO   | PRI | NULL    | auto_increment |
+| nip          | char(5)       | NO   | UNI | NULL    |                |
+| nama         | varchar(30)   | NO   |     | NULL    |                |
+| gender       | enum('laki-laki','perempuan') | NO   |     | NULL    |                |
+| tmp_lahir    | varchar(30)   | NO   |     | NULL    |                |
+| tgl_lahir    | date          | NO   |     | NULL    |                |
+| iddivisi     | int           | NO   | MUL | NULL    |                |
+| idjabatan    | int           | NO   | MUL | NULL    |                |
+| alamat       | text          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.01 sec)
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_dbpegawai |
++----------------+
+| divisi         |
+| jabatan        |
+| pegawai        |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO divisi (nama)
+    ->     VALUES
+    ->         ('SDM'),
+    ->         ('Keuangan'),
+    ->         ('Marketing'),
+    ->         ('IT');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM divisi;
++----+-----------+
+| id | nama      |
++----+-----------+
+|  1 | SDM       |
+|  2 | Keuangan  |
+|  3 | Marketing |
+|  4 | IT        |
++----+-----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO jabatan (nama)
+    ->     VALUES
+    ->         ('Direktur'),
+    ->         ('Manajer'),
+    ->         ('Asisten Manager'),
+    ->         ('Staff');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM jabatan;
++----+-----------------+
+| id | nama            |
++----+-----------------+
+|  1 | Direktur        |
+|  2 | Manajer         |
+|  3 | Asisten Manager |
+|  4 | Staff           |
++----+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO pegawai (nip, nama, gender, tmp_lahir, tgl_lahir, iddivisi, idjabatan, alamat)
+    ->     VALUES
+    ->         ('001', 'Budi Santoso', 'laki-laki', 'Bogor', '1985-06-12', 1, 2, 'Jakarta'),
+    ->         ('002', 'Siti Rahmawati', 'perempuan', 'Depok', '1990-03-28', 1, 1, 'Jakarta'),
+    ->         ('003', 'Joko Wibowo', 'laki-laki', 'Jakarta', '1988-11-05', 1, 3, 'Jakarta'),
+    ->         ('004', 'Rina Susanti', 'perempuan', 'Surabaya', '1992-07-17', 1, 4, 'Jakarta'),
+    ->         ('005', 'Agus Setiawan', 'laki-laki', 'Bandung', '1987-02-22', 1, 2, 'Jakarta'),
+    ->         ('006', 'Indah Permatasari', 'perempuan', 'Bogor', '1995-09-03', 2, 3, 'Jakarta'),
+    ->         ('007', 'Andi Wijaya', 'laki-laki', 'Depok', '1983-04-19', 2, 1, 'Jakarta'),
+    ->         ('008', 'Dewi Lestari', 'perempuan', 'Jakarta', '1991-12-27', 2, 4, 'Jakarta'),
+    ->         ('009', 'Eko Asep Prasetyo', 'laki-laki', 'Surabaya', '1989
+
+-08-14', 2, 2, 'Jakarta'),
+    ->         ('010', 'Ratna Sari', 'perempuan', 'Bandung', '1994-05-09', 2, 3, 'Jakarta'),
+    ->         ('011', 'Hadi Gunawan', 'laki-laki', 'Bogor', '1986-10-31', 3, 4, 'Jakarta'),
+    ->         ('012', 'Ayu Lestari', 'perempuan', 'Depok', '1993-01-21', 3, 1, 'Jakarta'),
+    ->         ('013', 'Dedi Susanto', 'laki-laki', 'Jakarta', '1982-06-15', 3, 2, 'Jakarta'),
+    ->         ('014', 'Rinasari Wati', 'perempuan', 'Surabaya', '1996-03-08', 3, 3, 'Jakarta'),
+    ->         ('015', 'Andi Asep Setiawan', 'laki-laki', 'Bandung', '1984-11-25', 3, 4, 'Jakarta'),
+    ->         ('016', 'Siti Nurhayati', 'perempuan', 'Bogor', '1998-07-02', 4, 1, 'Jakarta'),
+    ->         ('017', 'Muhammad Budi Hartono', 'laki-laki', 'Depok', '1980-09-18', 4, 2, 'Jakarta'),
+    ->         ('018', 'Rina Puspita', 'perempuan', 'Jakarta', '1997-02-12', 4, 3, 'Jakarta'),
+    ->         ('019', 'Joko Purwanto', 'laki-laki', 'Surabaya', '2001-05-29', 4, 4, 'Jakarta'),
+    ->         ('020', 'Siti Aminah', 'perempuan', 'Bandung', '2003-08-16', 4, 1, 'Jakarta');
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM pegawai;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |
+|  2 | 002 | Siti Rahmawati      | perempuan     | Depok      | 1990-03-28 |        1 |         1 | Jakarta     |
+|  3 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |
+|  4 | 004 | Rina Susanti        | perempuan     | Surabaya   | 1992-07-17 |        1 |         4 | Jakarta     |
+|  5 | 005 | Agus Setiawan       | laki-laki     | Bandung    | 1987-02-22 |        1 |         2 | Jakarta     |
+|  6 | 006 | Indah Permatasari   | perempuan     | Bogor      | 1995-09-03 |        2 |         3 | Jakarta     |
+|  7 | 007 | Andi Wijaya         | laki-laki     | Depok      | 1983-04-19 |        2 |         1 | Jakarta     |
+|  8 | 008 | Dewi Lestari        | perempuan     | Jakarta    | 1991-12-27 |        2 |         4 | Jakarta     |
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |
+| 10 | 010 | Ratna Sari          | perempuan     | Bandung    | 1994-05-09 |        2 |         3 | Jakarta     |
+| 11 | 011 | Hadi Gunawan        | laki-laki     | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |
+| 12 | 012 | Ayu Lestari         | perempuan     | Depok      | 1993-01-21 |        3 |         1 | Jakarta     |
+| 13 | 013 | Dedi Susanto        | laki-laki     | Jakarta    | 1982-06-15 |        3 |         2 | Jakarta     |
+| 14 | 014 | Rinasari Wati       | perempuan     | Surabaya   | 1996-03-08 |        3 |         3 | Jakarta     |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |
+| 16 | 016 | Siti Nurhayati      | perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |
+| 17 | 017 | Muhammad Budi Hartono | laki-laki  | Depok      | 1980-09-18 |        4 |         2 | Jakarta     |
+| 18 | 018 | Rina Puspita        | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |
+| 19 | 019 | Joko Purwanto       | laki-laki     | Surabaya   | 2001-05-29 |        4 |         4 | Jakarta     |
+| 20 | 020 | Siti Aminah         | perempuan     | Bandung    | 2003-08-16 |        4 |         1 | Jakarta     |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+
+20 rows in set (0.00 sec)
+
+mysql> UPDATE pegawai
+    -> SET nama = 'Andi Kurniawan', jenis_kelamin = 'laki-laki', tmp_lahir = 'Surabaya'
+    -> WHERE nip = '005';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  W
+
+arnings: 0
+
+mysql> UPDATE pegawai
+    -> SET nama = 'Ratna Dewi', jenis_kelamin = 'perempuan', tmp_lahir = 'Bandung'
+    -> WHERE nip = '010';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE pegawai
+    -> SET nama = 'Muhammad Hendra Wijaya', jenis_kelamin = 'laki-laki', tmp_lahir = 'Bogor'
+    -> WHERE nip = '011';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE pegawai
+    -> SET nama = 'Rinasari Lestari', jenis_kelamin = 'perempuan', tmp_lahir = 'Depok'
+    -> WHERE nip = '014';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE pegawai
+    -> SET nama = 'Muhammad Rudi Hartono', jenis_kelamin = 'laki-laki', tmp_lahir = 'Jakarta'
+    -> WHERE nip = '017';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> DELETE FROM pegawai
+    -> WHERE nip IN ('019', '020');
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> ALTER TABLE pegawai ADD COLUMN berat_badan FLOAT NOT NULL;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE pegawai SET berat_badan = 50.0 + (100.0 - 50.0) * RAND();
+Query OK, 20 rows affected (0.02 sec)
+Rows matched: 20  Changed: 20  Warnings: 0
+
+mysql> ALTER TABLE pegawai ADD COLUMN umur INTEGER NOT NULL;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE pegawai
+    -> SET umur = YEAR(CURDATE()) - YEAR(tgl_lahir) -
+    ->           (RIGHT(CONCAT(YEAR(CURDATE()), SUBSTRING(CURDATE(), 6)), 8) <
+    ->            RIGHT(CONCAT(YEAR(tgl_lahir), SUBSTRING(tgl_lahir, 6)), 8));
+Query OK, 20 rows affected (0.01 sec)
+Rows matched: 20  Changed: 20  Warnings: 0
+
+mysql> ALTER TABLE pegawai RENAME COLUMN jenis_kelamin TO jenis_kelamin;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SELECT nip, nama, jenis_kelamin, alamat FROM pegawai;
++-----+---------------------+---------------+-------------+
+| nip | nama                | jenis_kelamin | alamat      |
++-----+---------------------+---------------+-------------+
+| 001 | Budi Santoso        | laki-laki     | Jakarta     |
+| 002 | Siti Rahmawati      | perempuan     | Jakarta     |
+| 003 | Joko Wibowo         | laki-laki     | Jakarta     |
+| 004 | Rina Susanti        | perempuan     | Jakarta     |
+| 005 | Andi Kurniawan      | laki-laki     | Jakarta     |
+| 006 | Indah Permatasari   | perempuan     | Jakarta     |
+| 007 | Andi Wijaya         | laki-laki     | Jakarta     |
+| 008 | Dewi Lestari        | perempuan     | Jakarta     |
+| 009 | Eko Asep Prasetyo   | laki-laki     | Jakarta     |
+| 010 | Ratna Dewi          | perempuan     | Jakarta     |
+| 011 | Muhammad Hendra Wijaya | laki-laki  | Jakarta     |
+| 012 | Ayu Lestari         | perempuan     | Jakarta     |
+| 013 | Dedi Susanto        | laki-laki     | Jakarta     |
+| 014 | Rinasari Lestari    | perempuan     | Jakarta     |
+| 015 | Andi Asep Setiawan  | laki-laki     | Jakarta     |
+| 016 | Siti Nurhayati      | perempuan     | Jakarta     |
+| 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta     |
+| 018 | Rina Puspita        | perempuan     | Jakarta     |
++-----+---------------------+---------------+-------------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE jenis_kelamin = 'laki-laki';
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+|  3 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |  85.8944   |   36 |
+|  5 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
+|  7 | 007 | Andi Wijaya         | laki-laki     | Depok      | 1983-04-19 |        2 |         1 | Jakarta     |  54.8475   |   39 |
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+| 11 | 011 | Muhammad Hendra Wijaya | laki-laki  | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |  57.7172   |   35 |
+| 13 | 013 | Dedi Susanto        | laki-laki     | Jakarta    | 1982-06-15 |        3 |         2 | Jakarta     |  62.4329   |  
+
+ 39 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
+| 17 | 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE iddivisi = 4 AND jenis_kelamin = 'perempuan';
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama          | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| 16 | 016 | Siti Nurhayati| perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE umur > 30 AND tmp_lahir = 'Jakarta';
++----+-----+---------------------+---------------+-----------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+-----------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor     | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+| 13 | 013 | Dedi Susanto        | laki-laki     | Jakarta   | 1982-06-15 |        3 |         2 | Jakarta     |  62.4329   |   39 |
+| 17 | 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta   | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
++----+-----+---------------------+---------------+-----------+------------+----------+-----------+-------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE iddivisi = 2 AND umur > 30 AND jenis_kelamin = 'perempuan';
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama          | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| 12 | 012 | Ayu Lestari   | perempuan     | Depok      | 1993-01-21 |        3 |         1 | Jakarta     |  57.4763   |   29 |
+| 18 | 018 | Rina Puspita  | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |  94.3101   |   25 |
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai ORDER BY nip;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |       
+
+ 1 |         2 | Jakarta     |  56.7577   |   39 |
+|  2 | 002 | Siti Rahmawati      | perempuan     | Depok      | 1990-03-28 |        1 |         1 | Jakarta     |  73.3319   |   34 |
+|  3 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |  85.8944   |   36 |
+|  4 | 004 | Rina Susanti        | perempuan     | Surabaya   | 1992-07-17 |        1 |         4 | Jakarta     |  78.5757   |   32 |
+|  5 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
+|  6 | 006 | Indah Permatasari   | perempuan     | Bogor      | 1995-09-03 |        2 |         3 | Jakarta     |  65.1894   |   26 |
+|  7 | 007 | Andi Wijaya         | laki-laki     | Depok      | 1983-04-19 |        2 |         1 | Jakarta     |  54.8475   |   39 |
+|  8 | 008 | Dewi Lestari        | perempuan     | Jakarta    | 1991-12-27 |        2 |         4 | Jakarta     |  80.3778   |   30 |
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+| 10 | 010 | Ratna Dewi          | perempuan     | Bandung    | 1994-05-09 |        2 |         3 | Jakarta     |  77.1475   |   27 |
+| 11 | 011 | Muhammad Hendra Wijaya | laki-laki  | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |  57.7172   |   35 |
+| 12 | 012 | Ayu Lestari         | perempuan     | Depok      | 1993-01-21 |        3 |         1 | Jakarta     |  57.4763   |   29 |
+| 13 | 013 | Dedi Susanto        | laki-laki     | Jakarta    | 1982-06-15 |        3 |         2 | Jakarta     |  62.4329   |   39 |
+| 14 | 014 | Rinasari Lestari    | perempuan     | Depok      | 1996-03-08 |        3 |         3 | Jakarta     |  84.4875   |   26 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
+| 16 | 016 | Siti Nurhayati      | perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
+| 17 | 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
+| 18 | 018 | Rina Puspita        | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |  94.3101   |   25 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai ORDER BY jenis_kelamin;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| 002 | 002 | Siti Rahmawati      | perempuan     | Depok      | 1990-03-28 |        1 |         1 | Jakarta     |  73.3319   |   34 |
+| 004 | 004 | Rina Susanti        | perempuan     | Surabaya   | 1992-07-17 |        1 |         4 | Jakarta     |  78.5757   |   32 |
+| 006 | 006 | Indah Permatasari   | perempuan     | Bogor      | 1995-09-03 |        2 |         3 | Jakarta     |  65.1894   |   26 |
+| 008 | 008 | Dewi Lestari        | perempuan     | Jakarta    | 1991-12-27 |        2 |         4 | Jakarta     |  80.3778   |   30 |
+| 010 | 010 | Ratna Dewi          | perempuan     | Bandung    | 1994-05-09 |        2 |         3 | Jakarta     |  77.1475   |   27 |
+| 012 | 012 | Ayu Lestari         | perempuan     | Depok      | 1993-01-21 |        3 |         1 | Jakarta     |  57.4763   |   29 |
+| 014 | 014 | Rinasari Lestari    | perempuan     | Depok      | 1996-03-08 |        3 |         3 | Jakarta     |  84.4875   |   26 |
+| 016 | 016 | Siti Nurhayati      | perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
+| 018 | 018 | R
+
+ina Puspita        | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |  94.3101   |   25 |
+| 001 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+| 003 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |  85.8944   |   36 |
+| 005 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
+| 007 | 007 | Andi Wijaya         | laki-laki     | Depok      | 1983-04-19 |        2 |         1 | Jakarta     |  54.8475   |   39 |
+| 009 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+| 011 | 011 | Muhammad Hendra Wijaya | laki-laki  | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |  57.7172   |   35 |
+| 013 | 013 | Dedi Susanto        | laki-laki     | Jakarta    | 1982-06-15 |        3 |         2 | Jakarta     |  62.4329   |   39 |
+| 015 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
+| 017 | 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE nip IN ('001', '005', '010', '015', '020');
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+|  5 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
+| 10 | 010 | Ratna Dewi          | perempuan     | Bandung    | 1994-05-09 |        2 |         3 | Jakarta     |  77.1475   |   27 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE tmp_lahir NOT IN ('Bogor', 'Depok', 'Jakarta');
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama          | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  6 | 006 | Indah Permatasari   | perempuan | Bogor      | 1995-09-03 |        2 |         3 | Jakarta     |  65.1894   |   26 |
+| 14 | 014 | Rinasari Lestari    | perempuan | Depok      | 1996-03-08 |        3 |         3 | Jakarta     |  84.4875   |   26 |
+| 16 | 016 | Siti Nurhayati      | perempuan | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
++----+-----+---------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai ORDER BY nama ASC;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+|  3 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |  85.8944   |   36 |
+| 17 | 017 | Muhammad Rudi Hartono | l
+
+aki-laki  | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
+| 10 | 010 | Ratna Dewi          | perempuan     | Bandung    | 1994-05-09 |        2 |         3 | Jakarta     |  77.1475   |   27 |
+|  7 | 007 | Andi Wijaya         | laki-laki     | Depok      | 1983-04-19 |        2 |         1 | Jakarta     |  54.8475   |   39 |
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+|  8 | 008 | Dewi Lestari        | perempuan     | Jakarta    | 1991-12-27 |        2 |         4 | Jakarta     |  80.3778   |   30 |
+| 18 | 018 | Rina Puspita        | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |  94.3101   |   25 |
+|  4 | 004 | Rina Susanti        | perempuan     | Surabaya   | 1992-07-17 |        1 |         4 | Jakarta     |  78.5757   |   32 |
+| 11 | 011 | Muhammad Hendra Wijaya | laki-laki  | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |  57.7172   |   35 |
+|  6 | 006 | Indah Permatasari   | perempuan     | Bogor      | 1995-09-03 |        2 |         3 | Jakarta     |  65.1894   |   26 |
+| 12 | 012 | Ayu Lestari         | perempuan     | Depok      | 1993-01-21 |        3 |         1 | Jakarta     |  57.4763   |   29 |
+| 14 | 014 | Rinasari Lestari    | perempuan     | Depok      | 1996-03-08 |        3 |         3 | Jakarta     |  84.4875   |   26 |
+|  5 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
+|  2 | 002 | Siti Rahmawati      | perempuan     | Depok      | 1990-03-28 |        1 |         1 | Jakarta     |  73.3319   |   34 |
+| 16 | 016 | Siti Nurhayati      | perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai ORDER BY berat_badan DESC;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| 18 | 018 | Rina Puspita        | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |  94.3101   |   25 |
+| 16 | 016 | Siti Nurhayati      | perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
+| 14 | 014 | Rinasari Lestari    | perempuan     | Depok      | 1996-03-08 |        3 |         3 | Jakarta     |  84.4875   |   26 |
+|  3 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |  85.8944   |   36 |
+|  8 | 008 | Dewi Lestari        | perempuan     | Jakarta    | 1991-12-27 |        2 |         4 | Jakarta     |  80.3778   |   30 |
+| 10 | 010 | Ratna Dewi          | perempuan     | Bandung    | 1994-05-09 |        2 |         3 | Jakarta     |  77.1475   |   27 |
+|  4 | 004 | Rina Susanti        | perempuan     | Surabaya   | 1992-07-17 |        1 |         4 | Jakarta     |  78.5757   |   32 |
+|  6 | 006 | Indah Permatasari   | perempuan     | Bogor      | 1995-09-03 |        2 |         3 | Jakarta     |  65.1894   |   26 |
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+|  2 | 002 | Siti Rahmawati      | perempuan     | Depok      | 1990-03-28 |        1 |         1 | Jakarta     |  73.3319   |   34 |
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+|  5 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22
+
+ |        1 |         2 | Jakarta     |  63.2825   |   35 |
+| 13 | 013 | Dedi Susanto        | laki-laki     | Jakarta    | 1982-06-15 |        3 |         2 | Jakarta     |  62.4329   |   39 |
+| 11 | 011 | Muhammad Hendra Wijaya | laki-laki  | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |  57.7172   |   35 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
+| 17 | 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
+|  7 | 007 | Andi Wijaya         | laki-laki     | Depok      | 1983-04-19 |        2 |         1 | Jakarta     |  54.8475   |   39 |
+| 12 | 012 | Ayu Lestari         | perempuan     | Depok      | 1993-01-21 |        3 |         1 | Jakarta     |  57.4763   |   29 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai ORDER BY id ASC LIMIT 5;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+|  2 | 002 | Siti Rahmawati      | perempuan     | Depok      | 1990-03-28 |        1 |         1 | Jakarta     |  73.3319   |   34 |
+|  3 | 003 | Joko Wibowo         | laki-laki     | Jakarta    | 1988-11-05 |        1 |         3 | Jakarta     |  85.8944   |   36 |
+|  4 | 004 | Rina Susanti        | perempuan     | Surabaya   | 1992-07-17 |        1 |         4 | Jakarta     |  78.5757   |   32 |
+|  5 | 005 | Andi Kurniawan      | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai ORDER BY id ASC LIMIT 5 OFFSET 13;
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| 14 | 014 | Rinasari Lestari    | perempuan     | Depok      | 1996-03-08 |        3 |         3 | Jakarta     |  84.4875   |   26 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
+| 16 | 016 | Siti Nurhayati      | perempuan     | Bogor      | 1998-07-02 |        4 |         1 | Jakarta     |  88.8508   |   26 |
+| 17 | 017 | Muhammad Rudi Hartono | laki-laki  | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
+| 18 | 018 | Rina Puspita        | perempuan     | Jakarta    | 1997-02-12 |        4 |         3 | Jakarta     |  94.3101   |   25 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS jumlah_pegawai FROM pegawai;
++----------------+
+| jumlah_pegawai |
++----------------+
+|             19 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT nip, nama, umur FROM pegawai WHERE umur = (SELECT MAX(umur) FROM pegawai);
++-----+-----------------+------+
+| nip | nama
+
+            | umur |
++-----+-----------------+------+
+| 016 | Siti Nurhayati  |   26 |
+| 014 | Rinasari Lestari|   26 |
++-----+-----------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT nip, nama, berat_badan FROM pegawai WHERE berat_badan = (SELECT MIN(berat_badan) FROM pegawai);
++-----+-------------+-------------+
+| nip | nama        | berat_badan|
++-----+-------------+-------------+
+| 015 | Andi Asep Setiawan| 56.7403 |
++-----+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(umur) AS umur_rata_rata FROM pegawai;
++-----------------+
+| umur_rata_rata  |
++-----------------+
+| 33.4211         |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS jumlah_pegawai FROM pegawai WHERE jenis_kelamin = 'laki-laki' AND umur > 40 AND idjabatan = 2;
++----------------+
+| jumlah_pegawai |
++----------------+
+|              1 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS jumlah_pegawai FROM pegawai WHERE jenis_kelamin = 'P' AND umur < 40 AND idjabatan = 4;
++----------------+
+| jumlah_pegawai |
++----------------+
+|              0 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS jumlah_pegawai FROM pegawai WHERE jenis_kelamin = 'perempuan';
++----------------+
+| jumlah_pegawai |
++----------------+
+|              9 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(iddivisi = 1) AS jumlah_pegawai FROM pegawai;
++----------------+
+| jumlah_pegawai |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT iddivisi, COUNT(*) AS jumlah_pegawai FROM pegawai GROUP BY iddivisi;
++----------+----------------+
+| iddivisi | jumlah_pegawai |
++----------+----------------+
+|        1 |              5 |
+|        2 |              5 |
+|        3 |              5 |
+|        4 |              4 |
++----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT jenis_kelamin, COUNT(*) AS jumlah_pegawai FROM pegawai GROUP BY jenis_kelamin HAVING COUNT(*) >= 9;
++---------------+----------------+
+| jenis_kelamin | jumlah_pegawai |
++---------------+----------------+
+| laki-laki     |             10 |
+| perempuan     |              9 |
++---------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE nama LIKE 'Muhammad%';
++----+-----+----------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                 | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+----------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso         | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+| 11 | 011 | Muhammad Hendra Wijaya| laki-laki  | Bogor      | 1986-10-31 |        3 |         4 | Jakarta     |  57.7172   |   35 |
+| 17 | 017 | Muhammad Rudi Hartono| laki-laki   | Jakarta    | 1980-09-18 |        4 |         2 | Jakarta     |  56.7611   |   41 |
++----+-----+----------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE nama LIKE '%Santoso';
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE nama LIKE '%Asep%';
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pegawai WHERE nama LIKE '____s%';
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+| id | nip | nama                | jenis_kelamin | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat      | berat_badan | umur |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+|  1 | 001 | Budi Santoso        | laki-laki     | Bogor      | 1985-06-12 |        1 |         2 | Jakarta     |  56.7577   |   39 |
+|  5 | 005 | Andi Kurniawan     
+
+ | laki-laki     | Surabaya   | 1987-02-22 |        1 |         2 | Jakarta     |  63.2825   |   35 |
+|  9 | 009 | Eko Asep Prasetyo   | laki-laki     | Surabaya   | 1989-08-14 |        2 |         2 | Jakarta     |  69.3918   |   33 |
+| 15 | 015 | Andi Asep Setiawan  | laki-laki     | Bandung    | 1984-11-25 |        3 |         4 | Jakarta     |  56.7403   |   37 |
++----+-----+---------------------+---------------+------------+------------+----------+-----------+-------------+------------+------+
+4 rows in set (0.00 sec)
+
+mysql>
