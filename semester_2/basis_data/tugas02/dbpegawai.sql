@@ -135,8 +135,8 @@ ALTER TABLE pegawai ADD COLUMN umur INTEGER NOT NULL;
 
 UPDATE pegawai
 SET umur = YEAR(CURDATE()) - YEAR(tgl_lahir) -
-          (RIGHT(CONCAT(YEAR(CURDATE()), SUBSTRING(CURDATE(), 6)), 8) <
-           RIGHT(CONCAT(YEAR(tgl_lahir), SUBSTRING(tgl_lahir, 6)), 8));
+          (RIGHT(CONCAT(YEAR(CURDATE()), SUBSTRING(CURDATE(), 6)), 4) <
+           RIGHT(CONCAT(YEAR(tgl_lahir), SUBSTRING(tgl_lahir, 6)), 4));
 
 -- no 20
 ALTER TABLE pegawai RENAME COLUMN gender TO jenis_kelamin;
