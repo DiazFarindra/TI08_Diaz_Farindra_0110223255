@@ -44,6 +44,12 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/kelurahan/show" class="nav-link">Kelurahan</a>
                 </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="nav-link">logout</button>
+                    </form>
+                </li>
             </ul>
 
             <!-- Right navbar links -->
