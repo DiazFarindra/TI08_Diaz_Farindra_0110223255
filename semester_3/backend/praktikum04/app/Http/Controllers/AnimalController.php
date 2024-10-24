@@ -2,52 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Animal;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
 {
-    public array $animals = [
-        'anjing',
-        'kucing',
-        'gajah',
-        'jerapah',
-        'kuda',
-    ];
-
     public function index()
     {
-        $animals = $this->animals;
+        $animals = Animal::query()->get();
 
-        $response = array_map(function ($animal, $index) {
-            return [
-                'id' => $index,
-                'name' => $animal,
-            ];
-        }, $animals, array_keys($animals));
-
-        return response()->json($response);
+        return response()->json($animals);
     }
 
     public function store(Request $request)
     {
         $data = $request->name;
 
-        array_push($this->animals, $data);
+        Animal::create([
+            'name' => $data,
+        ]);
 
-        return $this->index();
+        return response()->json(Animal::query()->get());
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Animal $animal)
     {
-        $this->animals[$id] = $request->name;
+        $animal->update([
+            'name' => $request->name,
+        ]);
 
-        return $this->index();
+        return response()->json(Animal::query()->get());
     }
 
-    public function destroy(int $id)
+    public function destroy(Animal $animal)
     {
-        unset($this->animals[$id]);
+        $animal->delete();
 
-        return $this->index();
+        return response()->json(Animal::query()->get());
     }
 }
