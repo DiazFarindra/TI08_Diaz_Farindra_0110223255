@@ -17,3 +17,43 @@ Singleton pattern is one of the simplest design patterns in Java. This type of d
 ### Implementation of Singleton Design Pattern
 
 - Singleton: The Singleton class is responsible for creating an object of the class, implemented on: `/app/Contracts`, `/app/Services`, `/app/Providers/AppServiceProvider.php`.
+
+## Quick Start
+
+- Clone or download the repository
+
+- Install the dependencies
+
+    ```bash
+    composer install
+    ```
+
+- Create a copy of your .env file
+
+    ```bash
+    cp .env.example .env
+    ```
+
+- Generate an app encryption key
+
+    ```bash
+    php artisan key:generate
+    ```
+
+- run migration
+
+    ```bash
+    php artisan migrate
+    ```
+
+- run seeder
+
+    ```bash
+    php artisan db:seed
+    ```
+
+- Start the server
+
+    ```bash
+    php artisan serve
+    ```
