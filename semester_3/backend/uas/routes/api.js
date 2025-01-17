@@ -1,7 +1,8 @@
 // import NewsController
+import NewsController from '../controllers/NewsController.js';
 
 // import express
-const express = require("express");
+import express from 'express'
 
 // membuat object router
 const router = express.Router();
@@ -14,6 +15,13 @@ router.get("/", (req, res) => {
 });
 
 // Membuat routing news
+router.get("/news", NewsController.index);
+router.post("/news", NewsController.store);
+router.put("/news/:id", NewsController.update);
+router.delete("/news/:id", NewsController.destroy);
+router.get("/news/:id", NewsController.show);
+router.get("/news/search/:query", NewsController.search);
+router.get("/news/category/:category", NewsController.category);
 
 // export router
-module.exports = router;
+export default router;

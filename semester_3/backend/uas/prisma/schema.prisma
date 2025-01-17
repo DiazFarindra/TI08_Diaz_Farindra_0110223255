@@ -10,14 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  news  New[]
-}
-
-model New {
+model News {
   id          Int     @id @default(autoincrement())
   title       String
   description String
@@ -26,14 +19,5 @@ model New {
   image       String?
   url         String?
   publishedAt DateTime
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
-  author      User    @relation(fields: [authorId], references: [id])
-  authorId    Int
-}
-
-model Category {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
-  news  New[]
+  category    String
 }
