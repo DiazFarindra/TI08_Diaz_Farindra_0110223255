@@ -1,9 +1,9 @@
 // import express dan router
-const express = require("express");
-const router = require("./routes/api.js");
+import express from 'express'
+import dotenv from 'dotenv'
+import router from './routes/api.js'
 
-// import dotenv dan menjalankan method config
-require("dotenv").config();
+dotenv.config()
 
 // destructing object process.env
 const { APP_PORT } = process.env;

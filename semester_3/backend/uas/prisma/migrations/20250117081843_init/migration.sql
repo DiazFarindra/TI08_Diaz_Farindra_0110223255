@@ -4,7 +4,7 @@ CREATE TABLE "News" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "content" TEXT NOT NULL,
-    "published" BOOLEAN NOT NULL DEFAULT false,
+    "published" BOOLEAN NOT NULL DEFAULT true,
     "image" TEXT,
     "url" TEXT,
     "publishedAt" DATETIME NOT NULL,
