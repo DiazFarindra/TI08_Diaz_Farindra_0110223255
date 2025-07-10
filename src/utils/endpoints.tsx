@@ -1,6 +1,5 @@
 import axios from 'axios';
-import type { GlobalApiType } from '../types/global-api.type';
-import type { RegionApiType } from '../types/general-data.type';
+import type { GeneralDataType } from '../types/general-data.type';
 
 const api = axios.create({
     baseURL: 'https://covid-fe-2023.vercel.app/api',
@@ -9,7 +8,7 @@ const api = axios.create({
     },
 });
 
-const getGlobalData = async (): Promise<GlobalApiType> => {
+const getGlobalData = async (): Promise<GeneralDataType> => {
     try {
         const response = await api.get('/global.json');
 
@@ -24,7 +23,7 @@ const getGlobalData = async (): Promise<GlobalApiType> => {
     }
 };
 
-const getRegionData = async (): Promise<RegionApiType> => {
+const getRegionData = async (): Promise<GeneralDataType> => {
     try {
         const response = await api.get('/indonesia.json');
 
