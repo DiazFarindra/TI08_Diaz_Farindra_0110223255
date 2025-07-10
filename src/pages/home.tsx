@@ -12,20 +12,20 @@ export default function Home() {
         <div>
             <HeroBanner />
 
-            <div className='mt-28 grid grid-cols-3 gap-4'>
+            <div className='mt-16 lg:mt-28 grid grid-cols-1 md:grid-cols-3 gap-4'>
                 {global?.global.map((item, index) => (
                     <Card key={index} item={item} />
                 ))}
             </div>
 
-            <div className='grid-background mt-28 rounded-xl bg-primary px-8 py-16'>
-                <h2 className='text-3xl font-bold text-white'>Global COVID-19 Statistics</h2>
+            <div className='grid-background mt-16 lg:mt-28 rounded-xl bg-primary px-8 py-16'>
+                <h2 className='text-2xl md:text-3xl font-bold text-white'>Global COVID-19 Statistics</h2>
 
-                <p className='mt-4 text-lg text-white/80'>
+                <p className='mt-4 text-sm md:text-lg text-white/80'>
                     The global statistics provide an overview of the COVID-19 pandemic, including total cases, recoveries, and deaths worldwide.
                 </p>
 
-                <div className='mt-8 grid grid-cols-3 gap-6'>
+                <div className='mt-8 grid grid-cols-1 md:grid-cols-3 gap-6'>
                     {global?.regions.map((item, index) => (
                         <CardStats key={index} item={item} />
                     ))}

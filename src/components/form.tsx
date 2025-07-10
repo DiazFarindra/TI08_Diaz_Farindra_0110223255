@@ -10,6 +10,8 @@ export default function Form({ data, setData }: { data: Regions[], setData: Reac
         total: 0,
     });
 
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+
     // Handle form input changes
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -25,7 +27,7 @@ export default function Form({ data, setData }: { data: Regions[], setData: Reac
 
         // Validate form fields
         if (!form.provinces || !form.status || form.total <= 0) {
-            alert('Please fill in all fields correctly.');
+            window.alert('Please fill in all fields correctly.');
             return;
         }
 
@@ -72,16 +74,29 @@ export default function Form({ data, setData }: { data: Regions[], setData: Reac
 
         // Reset form fields
         event.currentTarget.reset();
+
+        // Show success alert
+        setShowAlert(true);
+
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 2000);
     };
 
     return (
-        <div className='mt-28 grid grid-cols-2 content-center gap-20 rounded-xl text-off bg-secondary grid-background px-8 py-16'>
+        <div className='mt-28 grid grid-cols-1 lg:grid-cols-2 content-center gap-12 md:gap-20 rounded-xl text-off bg-secondary grid-background px-8 py-16'>
             <div className='flex flex-col gap-4 place-self-center'>
-                <h2 className='text-4xl font-bold'>Add New Data</h2>
-                <p className='mt-4 text-xl'>
+                <h2 className='text-2xl md:text-4xl font-bold'>Add New Data</h2>
+                <p className='mt-0 md:mt-4 text-sm md:text-xl'>
                     Use the form below to add new data and its COVID-19 statistics.
                 </p>
             </div>
+
+            {showAlert && (
+                <div className='bg-emerald-400/50 text-off px-4 py-2'>
+                    <p className='text-sm'>data has been updated</p>
+                </div>
+            )}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
                 <div className='flex flex-col gap-2'>
