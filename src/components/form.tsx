@@ -37,22 +37,6 @@ export default function Form({ data, setData }: { data: Regions[], setData: Reac
         const status = formData.get('status') as string;
         const total = Number(formData.get('total'));
 
-        // Find the province in the data
-        const province = data.find(item => item.name === selectedProvince);
-
-        if (province) {
-            // Update the corresponding status count
-            if (status === 'confirmed') {
-                province.numbers.confirmed += total;
-            } else if (status === 'recovered') {
-                province.numbers.recovered += total;
-            } else if (status === 'treatment') {
-                province.numbers.treatment = (province.numbers.treatment ?? 0) + total;
-            } else if (status === 'death') {
-                province.numbers.death += total;
-            }
-        }
-
         // Update the state with the new data
         setData(prevData => {
             return prevData.map(item =>
@@ -61,10 +45,6 @@ export default function Form({ data, setData }: { data: Regions[], setData: Reac
                         ...item,
                         numbers: {
                             ...item.numbers,
-                            confirmed: item.numbers.confirmed,
-                            recovered: item.numbers.recovered,
-                            treatment: item.numbers.treatment ?? 0,
-                            death: item.numbers.death,
                             [status as StatusKey]: (item.numbers[status as StatusKey] ?? 0) + total,
                         },
                     }
@@ -92,13 +72,13 @@ export default function Form({ data, setData }: { data: Regions[], setData: Reac
                 </p>
             </div>
 
-            {showAlert && (
-                <div className='bg-emerald-400/50 text-off px-4 py-2'>
-                    <p className='text-sm'>data has been updated</p>
-                </div>
-            )}
-
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+                {showAlert && (
+                    <div className='bg-emerald-400/50 text-off px-4 py-2'>
+                        <p className='text-sm'>data has been updated</p>
+                    </div>
+                )}
+
                 <div className='flex flex-col gap-2'>
                     <label className="text-lg font-semibold" htmlFor="provinces">Provinces</label>
                     <select
