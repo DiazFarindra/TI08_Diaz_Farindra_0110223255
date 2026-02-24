@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farindra Diaz Ibrahim - CV</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .cv {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+
+    .sidebar {
+      background: #f9fafb;
+      border-right: 1px solid var(--line);
+      padding: 24px;
+    }
+
+    .photo {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid var(--line);
+    }
+
+    .name {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .role {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin: 22px 0 10px;
+      color: #374151;
+    }
+
+    .small-text {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .main section + section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    ul {
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding-left: 0;
+      margin-top: 10px;
+    }
+
+    .skills li {
+      margin: 0;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #dbeafe;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 760px) {
+      .cv {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="cv">
+    <aside class="sidebar">
+      <img
+        class="photo"
+        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80"
+        alt="Profile portrait"
+      />
+
+      <h1 class="name">Farindra Diaz Ibrahim</h1>
+      <p class="role">Full-Stack Developer</p>
+
+      <h2 class="section-title">Education</h2>
+      <p class="small-text">STT Terpadu Nurul Fikri</p>
+
+      <h2 class="section-title">Contact</h2>
+      <p class="small-text">farindra@example.com</p>
+      <p class="small-text">+62 8xx xxxx xxxx</p>
+    </aside>
+
+    <section class="main">
+      <section>
+        <h2 class="section-title">Profile</h2>
+        <p>
+          Motivated Full-Stack Developer with a strong interest in building scalable web
+          applications, clean user interfaces, and efficient backend systems. Enjoys solving
+          real-world problems through technology and continuous learning.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-title">Technical Skills</h2>
+        <ul class="skills">
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript</li>
+          <li>TypeScript</li>
+          <li>React</li>
+          <li>Node.js</li>
+          <li>Express.js</li>
+          <li>PHP</li>
+          <li>Laravel</li>
+          <li>MySQL</li>
+          <li>PostgreSQL</li>
+          <li>Git & GitHub</li>
+          <li>REST API</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="section-title">Projects</h2>
+        <ul>
+          <li><strong>Task Management App:</strong> Built a full-stack task tracker with authentication and role-based access.</li>
+          <li><strong>E-Commerce Backend:</strong> Designed RESTful APIs for products, orders, and payment workflows.</li>
+          <li><strong>Portfolio Website:</strong> Developed a responsive personal site to showcase projects and technical writing.</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
