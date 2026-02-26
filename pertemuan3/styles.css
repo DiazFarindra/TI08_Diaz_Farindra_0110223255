@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --line: #d8dee4;
+  --text: #1f2933;
+  --muted: #5b6875;
+  --accent: #0f766e;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.banner {
+  height: 120px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border-radius: 10px;
+  border: 1px solid #0b5d56;
+  background: linear-gradient(135deg, #115e59, #0f766e, #14b8a6);
+}
+
+.banner h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.8px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  border: 1px solid #8fd4cd;
+  background: #f6fffe;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.nav a:hover {
+  background: #e8fffc;
+}
+
+fieldset {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+legend {
+  padding: 0 8px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+li {
+  margin: 8px 0;
+}
+
+a {
+  color: #0a58ca;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--surface);
+}
+
+th,
+td {
+  border: 1px solid var(--line);
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #ecfdf9;
+}
+
+.gallery-track {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  white-space: nowrap;
+  padding: 8px;
+}
+
+.gallery-move {
+  display: inline-block;
+  animation: scroll-left 22s linear infinite;
+}
+
+.gallery-move img {
+  width: 220px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #b9c2cc;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.footer-wrap {
+  height: 64px;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  color: #0f766e;
+  background: #ecfdf9;
+  border-radius: 10px;
+  border: 1px solid #b7e8e2;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

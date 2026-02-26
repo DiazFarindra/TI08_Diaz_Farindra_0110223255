@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tugas Frameset - Diaz Farindra</title>
+</head>
+<frameset rows="120,64,*,64" frameborder="1" border="6" framespacing="6">
+  <frame src="header.html" name="headerFrame" scrolling="no" noresize />
+  <frame src="nav.html" name="navFrame" scrolling="no" noresize />
+
+  <frameset cols="23%,54%,23%" frameborder="1" border="6" framespacing="6">
+    <frame src="left.html" name="leftFrame" />
+    <frame src="home.html" name="mainContent" />
+    <frame src="right.html" name="rightFrame" />
+  </frameset>
+
+  <frame src="footer.html" name="footerFrame" scrolling="no" noresize />
+
+  <noframes>
+    <body>
+      Browser Anda tidak mendukung frameset.
+    </body>
+  </noframes>
+</frameset>
+</html>
