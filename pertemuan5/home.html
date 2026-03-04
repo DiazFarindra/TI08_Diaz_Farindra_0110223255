@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | Tugas RWD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="site-shell space-y-4 sm:space-y-5">
+      <header class="section-card"><h1 class="text-2xl sm:text-3xl">Personal Profile</h1><p class="mt-1 text-sm text-base-700">home.html content</p></header>
+      <nav class="section-card" aria-label="Navigation Menu">
+        <div class="flex flex-wrap gap-2">
+          <span class="rounded-lg bg-base-900 px-3 py-2 text-sm font-bold tracking-wide text-white">NF</span>
+          <a data-nav class="nav-link" href="index.html">Home</a><a data-nav class="nav-link" href="home.html">Profile</a><a data-nav class="nav-link" href="study.html">MyStudy</a><a data-nav class="nav-link" href="gallery.html">Gallery</a><a data-nav class="nav-link" href="datatables.html">Datatable</a><a data-nav class="nav-link" href="login.html">Login</a>
+        </div>
+      </nav>
+      <main id="main-content" class="grid gap-4 md:grid-cols-12">
+        <aside class="section-card md:col-span-4">
+          <h2 class="text-lg">Content</h2>
+          <ul class="mt-3 space-y-2 text-sm text-base-700">
+            <li><a class="underline decoration-base-300 hover:text-base-900 hover:decoration-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" href="https://nfacademy.id" target="_blank" rel="noreferrer">nfacademy.id</a></li>
+            <li><a class="underline decoration-base-300 hover:text-base-900 hover:decoration-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" href="https://nurulfikri.ac.id" target="_blank" rel="noreferrer">nurulfikri.ac.id</a></li>
+            <li><a class="underline decoration-base-300 hover:text-base-900 hover:decoration-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" href="https://tailwindcss.com" target="_blank" rel="noreferrer">tailwindcss.com</a></li>
+            <li><a class="underline decoration-base-300 hover:text-base-900 hover:decoration-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" href="https://developer.mozilla.org" target="_blank" rel="noreferrer">developer.mozilla.org</a></li>
+            <li><a class="underline decoration-base-300 hover:text-base-900 hover:decoration-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" href="https://vite.dev" target="_blank" rel="noreferrer">vite.dev</a></li>
+          </ul>
+        </aside>
+        <section class="section-card md:col-span-8">
+          <h2 class="text-lg">Main Content</h2>
+          <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <img src="/images/avatar.svg" alt="Profile avatar" width="256" height="256" loading="lazy" class="h-28 w-28 rounded-2xl border border-base-100 object-cover" />
+            <div class="text-sm text-base-700">
+              <p><strong>Name:</strong> Diaz Farindra</p>
+              <p><strong>Program:</strong> Informatics Engineering</p>
+              <p><strong>Interests:</strong> Web development, responsive UI, accessible frontend.</p>
+              <p><strong>Goal:</strong> Build polished websites with modern interface trends.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="section-card"><div class="flex items-center justify-between"><p class="text-sm text-base-700">Created by Student Developer. <span data-year></span></p><div class="flex gap-2"><a class="social-badge" href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">G</a><a class="social-badge" href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a><a class="social-badge" href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a></div></div></footer>
+    </div>
+    <script type="module" src="/src/scripts/shared.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base-50: #f4f8ff;
+  --color-base-100: #e8eefb;
+  --color-base-300: #b5c5e6;
+  --color-base-700: #2f3f63;
+  --color-base-900: #101a34;
+  --color-accent: #26b8a7;
+  --color-accent-soft: #75d9cf;
+  --font-display: "Poppins", "Segoe UI", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+  }
+
+  body {
+    margin: 0;
+    color: var(--color-base-900);
+    background:
+      radial-gradient(circle at 12% 18%, rgb(38 184 167 / 0.2), transparent 28%),
+      radial-gradient(circle at 87% 10%, rgb(53 103 216 / 0.18), transparent 35%),
+      radial-gradient(circle, rgb(47 63 99 / 0.14) 1px, transparent 1px),
+      linear-gradient(180deg, #f8fbff 0%, #edf3ff 100%);
+    background-size: auto, auto, 20px 20px, auto;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: rgb(16 26 52 / 0.12);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--color-base-900);
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+    touch-action: manipulation;
+  }
+
+  button {
+    touch-action: manipulation;
+  }
+
+  .skip-link {
+    @apply absolute left-3 top-3 z-50 rounded-lg bg-base-900 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  .site-shell {
+    @apply mx-auto max-w-6xl p-4 sm:p-6 lg:p-10;
+  }
+
+  .glass {
+    @apply rounded-2xl border border-white/60 bg-white/75 shadow-lg shadow-slate-900/5 backdrop-blur-sm;
+  }
+
+  .nav-link {
+    @apply rounded-lg px-3 py-2 text-sm font-semibold text-base-700 transition hover:bg-base-100 hover:text-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+  }
+
+  .nav-link-active {
+    @apply bg-base-900 text-white hover:bg-base-900 hover:text-white;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-base-900 px-4 py-2 text-sm font-semibold text-white transition hover:translate-y-[-1px] hover:bg-base-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+  }
+
+  .section-card {
+    @apply rounded-2xl border border-white/60 bg-white/75 p-5 shadow-lg shadow-slate-900/5 backdrop-blur-sm sm:p-6;
+  }
+
+  .social-badge {
+    @apply inline-flex size-9 items-center justify-center rounded-full border border-base-300 bg-white text-base-700 transition hover:border-base-700 hover:text-base-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+  }
+}

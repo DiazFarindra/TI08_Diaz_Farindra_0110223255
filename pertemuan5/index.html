@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Tugas RWD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="site-shell space-y-4 sm:space-y-5">
+      <header class="section-card space-y-4" aria-label="Header">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-700">Tugas RWD</p>
+            <h1 class="text-2xl sm:text-3xl">My Profile Website</h1>
+          </div>
+          <span class="rounded-full bg-base-100 px-4 py-2 text-sm font-semibold text-base-700">Tailwind CSS Layout</span>
+        </div>
+
+        <section class="relative overflow-hidden rounded-2xl border border-base-100" aria-label="Header carousel">
+          <div data-slide class="relative h-52 sm:h-64">
+            <img src="/images/slide-1.svg" alt="Creative workspace illustration" width="1200" height="600" loading="eager" fetchpriority="high" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-r from-base-900/50 via-base-900/25 to-transparent"></div>
+            <p class="absolute bottom-4 left-4 text-sm font-semibold text-white">Explore a modern responsive profile layout</p>
+          </div>
+          <div data-slide class="relative hidden h-52 sm:h-64" aria-hidden="true">
+            <img src="/images/slide-2.svg" alt="Code and design concept" width="1200" height="600" loading="lazy" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-r from-base-900/50 via-base-900/25 to-transparent"></div>
+            <p class="absolute bottom-4 left-4 text-sm font-semibold text-white">Built with semantic structure and clean spacing</p>
+          </div>
+          <div data-slide class="relative hidden h-52 sm:h-64" aria-hidden="true">
+            <img src="/images/slide-3.svg" alt="Student portfolio visual" width="1200" height="600" loading="lazy" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-r from-base-900/50 via-base-900/25 to-transparent"></div>
+            <p class="absolute bottom-4 left-4 text-sm font-semibold text-white">Ready for desktop, tablet, and mobile screens</p>
+          </div>
+
+          <div class="absolute inset-x-4 bottom-4 flex items-center justify-between">
+            <button data-prev type="button" class="btn-primary px-3 py-1.5 text-xs">Prev</button>
+            <div class="flex gap-2" role="tablist" aria-label="Carousel dots">
+              <button data-dot type="button" class="size-2.5 rounded-full bg-base-900" aria-label="Go to slide 1"></button>
+              <button data-dot type="button" class="size-2.5 rounded-full bg-base-300" aria-label="Go to slide 2"></button>
+              <button data-dot type="button" class="size-2.5 rounded-full bg-base-300" aria-label="Go to slide 3"></button>
+            </div>
+            <button data-next type="button" class="btn-primary px-3 py-1.5 text-xs">Next</button>
+          </div>
+        </section>
+      </header>
+
+      <nav class="section-card" aria-label="Navigation Menu">
+        <div class="flex flex-wrap gap-2">
+          <span class="rounded-lg bg-base-900 px-3 py-2 text-sm font-bold tracking-wide text-white">NF</span>
+          <a data-nav class="nav-link" href="index.html">Home</a>
+          <a data-nav class="nav-link" href="home.html">Profile</a>
+          <a data-nav class="nav-link" href="study.html">MyStudy</a>
+          <a data-nav class="nav-link" href="gallery.html">Gallery</a>
+          <a data-nav class="nav-link" href="datatables.html">Datatable</a>
+          <a data-nav class="nav-link" href="login.html">Login</a>
+        </div>
+      </nav>
+
+      <main id="main-content" class="grid gap-4 md:grid-cols-12" aria-label="Main page content">
+        <aside class="section-card md:col-span-4" aria-label="Content">
+          <h2 class="text-lg">Content</h2>
+          <p class="mt-1 text-sm text-base-700">Useful external references (minimum 5 links).</p>
+          <ul class="mt-4 space-y-2 text-sm font-medium text-base-700">
+            <li><a class="underline decoration-base-300 hover:decoration-base-900" href="https://nfacademy.id" target="_blank" rel="noreferrer">nfacademy.id</a></li>
+            <li><a class="underline decoration-base-300 hover:decoration-base-900" href="https://nurulfikri.ac.id" target="_blank" rel="noreferrer">nurulfikri.ac.id</a></li>
+            <li><a class="underline decoration-base-300 hover:decoration-base-900" href="https://tailwindcss.com" target="_blank" rel="noreferrer">tailwindcss.com</a></li>
+            <li><a class="underline decoration-base-300 hover:decoration-base-900" href="https://developer.mozilla.org" target="_blank" rel="noreferrer">developer.mozilla.org</a></li>
+            <li><a class="underline decoration-base-300 hover:decoration-base-900" href="https://vite.dev" target="_blank" rel="noreferrer">vite.dev</a></li>
+          </ul>
+        </aside>
+
+        <section class="section-card md:col-span-8" aria-label="Main Content">
+          <h2 class="text-lg">Main Content</h2>
+          <p class="mt-2 text-sm leading-6 text-base-700">
+            This website follows the assignment layout objective: Header, Navigation Menu, Content, Main Content, and Footer.
+            Use the menu above to open internal pages for profile, study history, gallery, datatable, and login form.
+          </p>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <a class="glass rounded-xl p-4 text-sm font-semibold text-base-700 hover:border-base-700" href="home.html">Open personal profile page</a>
+            <a class="glass rounded-xl p-4 text-sm font-semibold text-base-700 hover:border-base-700" href="study.html">Open education history page</a>
+            <a class="glass rounded-xl p-4 text-sm font-semibold text-base-700 hover:border-base-700" href="gallery.html">Open gallery page</a>
+            <a class="glass rounded-xl p-4 text-sm font-semibold text-base-700 hover:border-base-700" href="datatables.html">Open datatable page</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="section-card" aria-label="Footer">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-sm text-base-700">Created by Student Developer. <span data-year></span></p>
+          <div class="flex gap-2">
+            <a class="social-badge" href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">G</a>
+            <a class="social-badge" href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+            <a class="social-badge" href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/scripts/shared.ts"></script>
+    <script type="module" src="/src/scripts/carousel.ts"></script>
+  </body>
+</html>
