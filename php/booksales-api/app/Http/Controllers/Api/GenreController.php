@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\StoreGenreRequest;
 use App\Http\Resources\GenreResource;
 use App\Models\Genre;
 use App\Traits\ApiResponse;
@@ -19,6 +20,17 @@ class GenreController extends Controller
         return $this->respondWithCollection(
             GenreResource::collection($genres),
             'Genres retrieved successfully'
+        );
+    }
+
+    public function store(StoreGenreRequest $request): JsonResponse
+    {
+        $genre = Genre::create($request->validated());
+
+        return $this->respondWithData(
+            new GenreResource($genre),
+            'Genre created successfully',
+            201
         );
     }
 
