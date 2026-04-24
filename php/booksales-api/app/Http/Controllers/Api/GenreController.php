@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreGenreRequest;
+use App\Http\Requests\Api\UpdateGenreRequest;
 use App\Http\Resources\GenreResource;
 use App\Models\Genre;
 use App\Traits\ApiResponse;
@@ -40,5 +41,22 @@ class GenreController extends Controller
             new GenreResource($genre),
             'Genre retrieved successfully'
         );
+    }
+
+    public function update(UpdateGenreRequest $request, Genre $genre): JsonResponse
+    {
+        $genre->update($request->validated());
+
+        return $this->respondWithData(
+            new GenreResource($genre),
+            'Genre updated successfully'
+        );
+    }
+
+    public function destroy(Genre $genre): JsonResponse
+    {
+        $genre->delete();
+
+        return $this->respondWithData(null, 'Genre deleted successfully');
     }
 }

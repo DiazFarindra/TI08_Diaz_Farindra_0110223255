@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreAuthorRequest;
+use App\Http\Requests\Api\UpdateAuthorRequest;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
 use App\Traits\ApiResponse;
@@ -40,5 +41,22 @@ class AuthorController extends Controller
             new AuthorResource($author),
             'Author retrieved successfully'
         );
+    }
+
+    public function update(UpdateAuthorRequest $request, Author $author): JsonResponse
+    {
+        $author->update($request->validated());
+
+        return $this->respondWithData(
+            new AuthorResource($author),
+            'Author updated successfully'
+        );
+    }
+
+    public function destroy(Author $author): JsonResponse
+    {
+        $author->delete();
+
+        return $this->respondWithData(null, 'Author deleted successfully');
     }
 }
