@@ -18,6 +18,12 @@ class GenreResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'books' => $this->whenLoaded('books', function () {
+                return $this->books->map(fn ($book): array => [
+                    'id' => $book->id,
+                    'title' => $book->title,
+                ])->values();
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

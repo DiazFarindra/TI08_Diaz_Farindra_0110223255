@@ -16,7 +16,7 @@ class GenreController extends Controller
 
     public function index(): JsonResponse
     {
-        $genres = Genre::all();
+        $genres = Genre::with('books')->get();
 
         return $this->respondWithCollection(
             GenreResource::collection($genres),
@@ -37,6 +37,8 @@ class GenreController extends Controller
 
     public function show(Genre $genre): JsonResponse
     {
+        $genre->load('books');
+
         return $this->respondWithData(
             new GenreResource($genre),
             'Genre retrieved successfully'

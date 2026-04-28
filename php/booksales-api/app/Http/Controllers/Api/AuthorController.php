@@ -16,7 +16,7 @@ class AuthorController extends Controller
 
     public function index(): JsonResponse
     {
-        $authors = Author::all();
+        $authors = Author::with('books')->get();
 
         return $this->respondWithCollection(
             AuthorResource::collection($authors),
@@ -37,6 +37,8 @@ class AuthorController extends Controller
 
     public function show(Author $author): JsonResponse
     {
+        $author->load('books');
+
         return $this->respondWithData(
             new AuthorResource($author),
             'Author retrieved successfully'
