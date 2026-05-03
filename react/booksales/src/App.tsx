@@ -1,15 +1,53 @@
 import { useState } from 'react'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
+import AdminPage from './pages/AdminPage'
 import BooksPage from './pages/BooksPage'
 import HomePage from './pages/HomePage'
+import {
+  createAuthor,
+  createGenre,
+  deleteAuthor,
+  deleteGenre,
+  initialAuthors,
+  initialGenres,
+  updateAuthor,
+  updateGenre,
+} from './utils/admin'
 import { createBook, initialBooks } from './utils/books'
+import type { NewAuthor, NewGenre } from './utils/admin'
 import type { Book, NewBook } from './utils/books'
 
 function App() {
   const [books, setBooks] = useState<Book[]>(initialBooks)
+  const [genres, setGenres] = useState(initialGenres)
+  const [authors, setAuthors] = useState(initialAuthors)
 
   const handleAddBook = (newBook: NewBook) => {
     setBooks((previousBooks) => [createBook(previousBooks, newBook), ...previousBooks])
+  }
+
+  const handleAddGenre = (newGenre: NewGenre) => {
+    setGenres((previousGenres) => [createGenre(previousGenres, newGenre), ...previousGenres])
+  }
+
+  const handleAddAuthor = (newAuthor: NewAuthor) => {
+    setAuthors((previousAuthors) => [createAuthor(previousAuthors, newAuthor), ...previousAuthors])
+  }
+
+  const handleUpdateGenre = (id: number, payload: NewGenre) => {
+    setGenres((previousGenres) => updateGenre(previousGenres, id, payload))
+  }
+
+  const handleDeleteGenre = (id: number) => {
+    setGenres((previousGenres) => deleteGenre(previousGenres, id))
+  }
+
+  const handleUpdateAuthor = (id: number, payload: NewAuthor) => {
+    setAuthors((previousAuthors) => updateAuthor(previousAuthors, id, payload))
+  }
+
+  const handleDeleteAuthor = (id: number) => {
+    setAuthors((previousAuthors) => deleteAuthor(previousAuthors, id))
   }
 
   return (
@@ -40,6 +78,12 @@ function App() {
               >
                 Books
               </NavLink>
+              <NavLink
+                to="/admin"
+                className={({ isActive }) => `nav-pill ${isActive ? 'nav-pill-active' : 'nav-pill-idle'}`}
+              >
+                Admin
+              </NavLink>
               <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-teal-100">
                 {books.length} books
               </span>
@@ -49,6 +93,21 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage books={books} />} />
             <Route path="/books" element={<BooksPage books={books} onAddBook={handleAddBook} />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminPage
+                  genres={genres}
+                  authors={authors}
+                  onAddGenre={handleAddGenre}
+                  onAddAuthor={handleAddAuthor}
+                  onUpdateGenre={handleUpdateGenre}
+                  onDeleteGenre={handleDeleteGenre}
+                  onUpdateAuthor={handleUpdateAuthor}
+                  onDeleteAuthor={handleDeleteAuthor}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>
