@@ -57,6 +57,8 @@ function AdminPage({
   const [authorSuccess, setAuthorSuccess] = useState<string | null>(null)
   const [genreSearch, setGenreSearch] = useState('')
   const [authorSearch, setAuthorSearch] = useState('')
+  const [genreDeleteId, setGenreDeleteId] = useState<number | null>(null)
+  const [authorDeleteId, setAuthorDeleteId] = useState<number | null>(null)
 
   const filteredGenres = useMemo(() => {
     const query = normalizeSearch(genreSearch)
@@ -132,6 +134,7 @@ function AdminPage({
 
   const handleStartGenreEdit = (genre: Genre) => {
     resetGenreMessage()
+    setGenreDeleteId(null)
     setGenreEditId(genre.id)
     setGenreEditForm({
       name: genre.name,
@@ -141,6 +144,7 @@ function AdminPage({
 
   const handleStartAuthorEdit = (author: Author) => {
     resetAuthorMessage()
+    setAuthorDeleteId(null)
     setAuthorEditId(author.id)
     setAuthorEditForm({
       name: author.name,
@@ -178,6 +182,7 @@ function AdminPage({
 
     onUpdateGenre(genreEditId, payload)
     setGenreSuccess(`Genre "${payload.name}" berhasil diperbarui.`)
+    setGenreDeleteId(null)
     handleCancelGenreEdit()
   }
 
@@ -201,40 +206,35 @@ function AdminPage({
 
     onUpdateAuthor(authorEditId, payload)
     setAuthorSuccess(`Author "${payload.name}" berhasil diperbarui.`)
+    setAuthorDeleteId(null)
     handleCancelAuthorEdit()
   }
 
-  const handleDeleteGenre = (genre: Genre) => {
+  const handleAskDeleteGenre = (genre: Genre) => {
     resetGenreMessage()
-    const shouldDelete = window.confirm(`Hapus genre "${genre.name}"?`)
+    setGenreEditId(null)
+    setGenreEditForm(initialGenreFormState)
+    setGenreDeleteId(genre.id)
+  }
 
-    if (!shouldDelete) {
-      return
-    }
-
+  const handleConfirmDeleteGenre = (genre: Genre) => {
+    resetGenreMessage()
     onDeleteGenre(genre.id)
-
-    if (genreEditId === genre.id) {
-      handleCancelGenreEdit()
-    }
-
+    setGenreDeleteId(null)
     setGenreSuccess(`Genre "${genre.name}" berhasil dihapus.`)
   }
 
-  const handleDeleteAuthor = (author: Author) => {
+  const handleAskDeleteAuthor = (author: Author) => {
     resetAuthorMessage()
-    const shouldDelete = window.confirm(`Hapus author "${author.name}"?`)
+    setAuthorEditId(null)
+    setAuthorEditForm(initialAuthorFormState)
+    setAuthorDeleteId(author.id)
+  }
 
-    if (!shouldDelete) {
-      return
-    }
-
+  const handleConfirmDeleteAuthor = (author: Author) => {
+    resetAuthorMessage()
     onDeleteAuthor(author.id)
-
-    if (authorEditId === author.id) {
-      handleCancelAuthorEdit()
-    }
-
+    setAuthorDeleteId(null)
     setAuthorSuccess(`Author "${author.name}" berhasil dihapus.`)
   }
 
@@ -265,7 +265,7 @@ function AdminPage({
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-2xl font-bold text-white">Genre</h3>
             <span className="rounded-full border border-cyan-300/35 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-              Read & Create
+              CRUD
             </span>
           </div>
 
@@ -345,6 +345,7 @@ function AdminPage({
 
             {filteredGenres.map((genre) => {
               const isEditing = genreEditId === genre.id
+              const isConfirmingDelete = genreDeleteId === genre.id
 
               return (
                 <article key={genre.id} className="rounded-2xl border border-white/15 bg-white/6 px-4 py-4">
@@ -363,11 +364,11 @@ function AdminPage({
                         onClick={() => handleStartGenreEdit(genre)}
                         className="rounded-full border border-cyan-300/45 bg-cyan-300/10 px-3 py-1.5 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300/20"
                       >
-                        Edit
+                        Update
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDeleteGenre(genre)}
+                        onClick={() => handleAskDeleteGenre(genre)}
                         className="rounded-full border border-rose-300/45 bg-rose-400/10 px-3 py-1.5 text-xs font-semibold text-rose-100 transition hover:bg-rose-400/20"
                       >
                         Hapus
@@ -377,6 +378,11 @@ function AdminPage({
 
                   {isEditing ? (
                     <form onSubmit={handleGenreUpdateSubmit} className="mt-4 space-y-3 rounded-xl border border-cyan-200/35 bg-slate-950/55 p-3">
+                      <div className="border-b border-white/10 pb-3">
+                        <p className="text-sm font-semibold text-white">Update Genre</p>
+                        <p className="text-xs text-slate-400">Ubah nama dan deskripsi genre yang dipilih.</p>
+                      </div>
+
                       <div>
                         <label htmlFor={`genre-edit-name-${genre.id}`} className="field-label">
                           Nama Genre Baru
@@ -423,6 +429,31 @@ function AdminPage({
                       </div>
                     </form>
                   ) : null}
+
+                  {isConfirmingDelete ? (
+                    <div className="mt-4 rounded-xl border border-rose-300/35 bg-rose-400/10 p-3">
+                      <p className="text-sm font-semibold text-rose-100">Hapus genre ini?</p>
+                      <p className="mt-1 text-xs leading-5 text-rose-100/80">
+                        Data "{genre.name}" akan dihapus dari daftar genre Admin.
+                      </p>
+                      <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleConfirmDeleteGenre(genre)}
+                          className="rounded-full bg-rose-300 px-4 py-2 text-xs font-semibold text-slate-950 transition hover:brightness-110"
+                        >
+                          Ya, Hapus
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setGenreDeleteId(null)}
+                          className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/20"
+                        >
+                          Batal
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
                 </article>
               )
             })}
@@ -439,7 +470,7 @@ function AdminPage({
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-2xl font-bold text-white">Author</h3>
             <span className="rounded-full border border-emerald-300/35 bg-emerald-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-100">
-              Read & Create
+              CRUD
             </span>
           </div>
 
@@ -519,6 +550,7 @@ function AdminPage({
 
             {filteredAuthors.map((author) => {
               const isEditing = authorEditId === author.id
+              const isConfirmingDelete = authorDeleteId === author.id
 
               return (
                 <article key={author.id} className="rounded-2xl border border-white/15 bg-white/6 px-4 py-4">
@@ -537,11 +569,11 @@ function AdminPage({
                         onClick={() => handleStartAuthorEdit(author)}
                         className="rounded-full border border-emerald-300/45 bg-emerald-300/10 px-3 py-1.5 text-xs font-semibold text-emerald-100 transition hover:bg-emerald-300/20"
                       >
-                        Edit
+                        Update
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDeleteAuthor(author)}
+                        onClick={() => handleAskDeleteAuthor(author)}
                         className="rounded-full border border-rose-300/45 bg-rose-400/10 px-3 py-1.5 text-xs font-semibold text-rose-100 transition hover:bg-rose-400/20"
                       >
                         Hapus
@@ -551,6 +583,11 @@ function AdminPage({
 
                   {isEditing ? (
                     <form onSubmit={handleAuthorUpdateSubmit} className="mt-4 space-y-3 rounded-xl border border-emerald-200/35 bg-slate-950/55 p-3">
+                      <div className="border-b border-white/10 pb-3">
+                        <p className="text-sm font-semibold text-white">Update Author</p>
+                        <p className="text-xs text-slate-400">Ubah nama author dan asal negara yang dipilih.</p>
+                      </div>
+
                       <div>
                         <label htmlFor={`author-edit-name-${author.id}`} className="field-label">
                           Nama Author Baru
@@ -591,6 +628,31 @@ function AdminPage({
                         </button>
                       </div>
                     </form>
+                  ) : null}
+
+                  {isConfirmingDelete ? (
+                    <div className="mt-4 rounded-xl border border-rose-300/35 bg-rose-400/10 p-3">
+                      <p className="text-sm font-semibold text-rose-100">Hapus author ini?</p>
+                      <p className="mt-1 text-xs leading-5 text-rose-100/80">
+                        Data "{author.name}" akan dihapus dari daftar author Admin.
+                      </p>
+                      <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleConfirmDeleteAuthor(author)}
+                          className="rounded-full bg-rose-300 px-4 py-2 text-xs font-semibold text-slate-950 transition hover:brightness-110"
+                        >
+                          Ya, Hapus
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setAuthorDeleteId(null)}
+                          className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/20"
+                        >
+                          Batal
+                        </button>
+                      </div>
+                    </div>
                   ) : null}
                 </article>
               )
