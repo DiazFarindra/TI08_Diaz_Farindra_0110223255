@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { Author, Genre, NewAuthor, NewGenre } from '../utils/admin'
 
 interface AdminPageProps {
@@ -33,6 +33,8 @@ const initialAuthorFormState: AuthorFormState = {
   country: '',
 }
 
+const normalizeSearch = (value: string) => value.trim().toLowerCase()
+
 function AdminPage({
   genres,
   authors,
@@ -53,6 +55,32 @@ function AdminPage({
   const [authorError, setAuthorError] = useState<string | null>(null)
   const [genreSuccess, setGenreSuccess] = useState<string | null>(null)
   const [authorSuccess, setAuthorSuccess] = useState<string | null>(null)
+  const [genreSearch, setGenreSearch] = useState('')
+  const [authorSearch, setAuthorSearch] = useState('')
+
+  const filteredGenres = useMemo(() => {
+    const query = normalizeSearch(genreSearch)
+
+    if (!query) {
+      return genres
+    }
+
+    return genres.filter(
+      (genre) => genre.name.toLowerCase().includes(query) || genre.description.toLowerCase().includes(query),
+    )
+  }, [genreSearch, genres])
+
+  const filteredAuthors = useMemo(() => {
+    const query = normalizeSearch(authorSearch)
+
+    if (!query) {
+      return authors
+    }
+
+    return authors.filter(
+      (author) => author.name.toLowerCase().includes(query) || author.country.toLowerCase().includes(query),
+    )
+  }, [authorSearch, authors])
 
   const resetGenreMessage = () => {
     setGenreError(null)
@@ -237,7 +265,7 @@ function AdminPage({
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-2xl font-bold text-white">Genre</h3>
             <span className="rounded-full border border-cyan-300/35 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-              CRUD
+              Read & Create
             </span>
           </div>
 
@@ -252,6 +280,13 @@ function AdminPage({
           ) : null}
 
           <form onSubmit={handleGenreSubmit} className="space-y-4 rounded-2xl border border-white/15 bg-slate-950/45 p-4">
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div>
+                <p className="text-sm font-semibold text-white">Create Genre</p>
+                <p className="text-xs text-slate-400">Tambah kategori baru untuk katalog buku.</p>
+              </div>
+            </div>
+
             <div>
               <label htmlFor="genre-name" className="field-label">
                 Nama Genre
@@ -286,8 +321,29 @@ function AdminPage({
             </button>
           </form>
 
-          <div className="space-y-3">
-            {genres.map((genre) => {
+          <div className="space-y-4 rounded-2xl border border-white/15 bg-slate-950/35 p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-white">Read Genre</p>
+                <p className="text-xs text-slate-400">
+                  Menampilkan {filteredGenres.length} dari {genres.length} genre.
+                </p>
+              </div>
+              <div className="w-full sm:max-w-64">
+                <label htmlFor="genre-search" className="field-label">
+                  Cari Genre
+                </label>
+                <input
+                  id="genre-search"
+                  className="field-input"
+                  value={genreSearch}
+                  onChange={(event) => setGenreSearch(event.target.value)}
+                  placeholder="Nama atau deskripsi"
+                />
+              </div>
+            </div>
+
+            {filteredGenres.map((genre) => {
               const isEditing = genreEditId === genre.id
 
               return (
@@ -370,6 +426,12 @@ function AdminPage({
                 </article>
               )
             })}
+
+            {filteredGenres.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-white/20 px-4 py-8 text-center text-sm text-slate-300">
+                Tidak ada genre yang cocok dengan kata kunci tersebut.
+              </div>
+            ) : null}
           </div>
         </article>
 
@@ -377,7 +439,7 @@ function AdminPage({
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-2xl font-bold text-white">Author</h3>
             <span className="rounded-full border border-emerald-300/35 bg-emerald-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-100">
-              CRUD
+              Read & Create
             </span>
           </div>
 
@@ -392,6 +454,13 @@ function AdminPage({
           ) : null}
 
           <form onSubmit={handleAuthorSubmit} className="space-y-4 rounded-2xl border border-white/15 bg-slate-950/45 p-4">
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div>
+                <p className="text-sm font-semibold text-white">Create Author</p>
+                <p className="text-xs text-slate-400">Tambah penulis baru untuk referensi katalog.</p>
+              </div>
+            </div>
+
             <div>
               <label htmlFor="author-name" className="field-label">
                 Nama Author
@@ -426,8 +495,29 @@ function AdminPage({
             </button>
           </form>
 
-          <div className="space-y-3">
-            {authors.map((author) => {
+          <div className="space-y-4 rounded-2xl border border-white/15 bg-slate-950/35 p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-white">Read Author</p>
+                <p className="text-xs text-slate-400">
+                  Menampilkan {filteredAuthors.length} dari {authors.length} author.
+                </p>
+              </div>
+              <div className="w-full sm:max-w-64">
+                <label htmlFor="author-search" className="field-label">
+                  Cari Author
+                </label>
+                <input
+                  id="author-search"
+                  className="field-input"
+                  value={authorSearch}
+                  onChange={(event) => setAuthorSearch(event.target.value)}
+                  placeholder="Nama atau negara"
+                />
+              </div>
+            </div>
+
+            {filteredAuthors.map((author) => {
               const isEditing = authorEditId === author.id
 
               return (
@@ -505,6 +595,12 @@ function AdminPage({
                 </article>
               )
             })}
+
+            {filteredAuthors.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-white/20 px-4 py-8 text-center text-sm text-slate-300">
+                Tidak ada author yang cocok dengan kata kunci tersebut.
+              </div>
+            ) : null}
           </div>
         </article>
       </section>
