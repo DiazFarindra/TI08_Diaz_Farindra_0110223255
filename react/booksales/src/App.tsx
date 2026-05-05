@@ -3,6 +3,7 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 import AdminPage from './pages/AdminPage'
 import BooksPage from './pages/BooksPage'
 import HomePage from './pages/HomePage'
+import RegisterPage from './pages/RegisterPage'
 import {
   createAuthor,
   createGenre,
@@ -14,13 +15,16 @@ import {
   updateGenre,
 } from './utils/admin'
 import { createBook, initialBooks } from './utils/books'
+import { initialRegisteredUsers } from './utils/registration'
 import type { NewAuthor, NewGenre } from './utils/admin'
 import type { Book, NewBook } from './utils/books'
+import type { RegisteredUser } from './utils/registration'
 
 function App() {
   const [books, setBooks] = useState<Book[]>(initialBooks)
   const [genres, setGenres] = useState(initialGenres)
   const [authors, setAuthors] = useState(initialAuthors)
+  const [registeredUsers, setRegisteredUsers] = useState<RegisteredUser[]>(initialRegisteredUsers)
 
   const handleAddBook = (newBook: NewBook) => {
     setBooks((previousBooks) => [createBook(previousBooks, newBook), ...previousBooks])
@@ -48,6 +52,10 @@ function App() {
 
   const handleDeleteAuthor = (id: number) => {
     setAuthors((previousAuthors) => deleteAuthor(previousAuthors, id))
+  }
+
+  const handleRegisterUser = (newUser: RegisteredUser) => {
+    setRegisteredUsers((previousUsers) => [newUser, ...previousUsers])
   }
 
   return (
@@ -84,8 +92,17 @@ function App() {
               >
                 Admin
               </NavLink>
+              <NavLink
+                to="/register"
+                className={({ isActive }) => `nav-pill ${isActive ? 'nav-pill-active' : 'nav-pill-idle'}`}
+              >
+                Register
+              </NavLink>
               <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-teal-100">
                 {books.length} books
+              </span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
+                {registeredUsers.length} users
               </span>
             </div>
           </header>
@@ -107,6 +124,10 @@ function App() {
                   onDeleteAuthor={handleDeleteAuthor}
                 />
               }
+            />
+            <Route
+              path="/register"
+              element={<RegisterPage users={registeredUsers} onRegister={handleRegisterUser} />}
             />
           </Routes>
         </div>
